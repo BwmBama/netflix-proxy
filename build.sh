@@ -166,36 +166,42 @@ else
 fi
 
 log_action_begin_msg "adding IPv4 iptables rules"
-sudo iptables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 80 -j REDIRECT --to-port 8080\
-  && sudo iptables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 443 -j REDIRECT --to-port 8080\
+sudo iptables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 80 -j REDIRECT --to-port 8081\
+  && sudo iptables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 443 -j REDIRECT --to-port 8443\
   && sudo iptables -t nat -A PREROUTING -i ${IFACE} -p udp --dport 53 -j REDIRECT --to-port 5353\
   && sudo iptables -t nat -A POSTROUTING -o ${IFACE} -j MASQUERADE\
   && sudo iptables -A INPUT -p icmp -j ACCEPT\
   && sudo iptables -A INPUT -i lo -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 10000:65535 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m state --state NEW -m udp --dport 10000:65535 -j ACCEPT\
   && sudo iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT\
   && sudo iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT\
   && sudo iptables -A INPUT -p udp -m udp --dport 53 -j ACCEPT\
-  && sudo iptables -A INPUT -p udp -m udp --dport 5353 -j ACCEPT\
   && sudo iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT\
   && sudo iptables -A INPUT -p tcp -m tcp --dport 8080 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 8081 -j ACCEPT\
   && sudo iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 8443 -j ACCEPT\
   && sudo iptables -A INPUT -j REJECT --reject-with icmp-host-prohibited
 log_action_end_msg $?
 
 log_action_begin_msg "adding IPv6 iptables rules"
-sudo ip6tables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 80 -j REDIRECT --to-port 8080\
-  && sudo ip6tables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 443 -j REDIRECT --to-port 8080\
+sudo ip6tables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 80 -j REDIRECT --to-port 8081\
+  && sudo ip6tables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 443 -j REDIRECT --to-port 8443\
   && sudo ip6tables -t nat -A PREROUTING -i ${IFACE} -p udp --dport 53 -j REDIRECT --to-port 5353\
   && sudo iptables -t nat -A POSTROUTING -o ${IFACE} -j MASQUERADE\
   && sudo ip6tables -A INPUT -p ipv6-icmp -j ACCEPT\
   && sudo ip6tables -A INPUT -i lo -j ACCEPT\
+  && sudo ip6tables -A INPUT -p tcp -m state --state NEW -m tcp --dport 10000:65535 -j ACCEPT\
+  && sudo ip6tables -A INPUT -p udp -m state --state NEW -m udp --dport 10000:65535 -j ACCEPT\
   && sudo ip6tables -A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT\
   && sudo ip6tables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT\
   && sudo ip6tables -A INPUT -p udp -m udp --dport 53 -j ACCEPT\
-  && sudo ip6tables -A INPUT -p udp -m udp --dport 5353 -j ACCEPT\
   && sudo ip6tables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT\
   && sudo ip6tables -A INPUT -p tcp -m tcp --dport 8080 -j ACCEPT\
+  && sudo ip6tables -A INPUT -p tcp -m tcp --dport 8081 -j ACCEPT\
   && sudo ip6tables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT\
+  && sudo ip6tables -A INPUT -p tcp -m tcp --dport 8443 -j ACCEPT\
   && sudo ip6tables -A INPUT -j REJECT --reject-with icmp6-adm-prohibited
 log_action_end_msg $?
 
@@ -291,7 +297,9 @@ log_action_end_msg $?
 
 log_action_begin_msg "installing Python3 and requirements"
 sudo apt-get -y update &>> ${CWD}/netflix-proxy.log\
-  && sudo apt-get -y install git python3.6 python3-venv python3-pip sqlite3 &>> ${CWD}/netflix-proxy.log\
+  && dpkg --configure -a\
+  && sudo apt-get -y install git python3 python3-venv python3-pip sqlite3 &>> ${CWD}/netflix-proxy.log\
+  && pip3 install --upgrade pip &>> ${CWD}/netflix-proxy.log\
   && python3 -m venv venv &>> ${CWD}/netflix-proxy.log\
   && source venv/bin/activate &>> ${CWD}/netflix-proxy.log\
   && pip3 install -r requirements.txt &>> ${CWD}/netflix-proxy.log\
