@@ -96,3 +96,6 @@ omtrdc.net
 gamer.com.tw
 bahamut.com.tw
 hinet.net
+google.com
+google.com.hk
+google.cn
