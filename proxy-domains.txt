@@ -99,3 +99,12 @@ hinet.net
 google.com
 google.com.hk
 google.cn
+youtube.com
+youtu.be
+googlevideo.com
+ytimg.com
+googleusercontent.com
+gstatic.com
+ggpht.com
+googleapis.com
+googletagmanager.com
