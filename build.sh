@@ -307,6 +307,7 @@ sudo apt-get -y update &>> ${CWD}/netflix-proxy.log\
   && pip3 install --upgrade pip &>> ${CWD}/netflix-proxy.log\
   && python3 -m venv venv &>> ${CWD}/netflix-proxy.log\
   && source venv/bin/activate &>> ${CWD}/netflix-proxy.log\
+  && pip3 install pip --upgrade &>> ${CWD}/netflix-proxy.log\
   && pip3 install -r requirements.txt &>> ${CWD}/netflix-proxy.log\
   && pip3 install -r ${CWD}/auth/requirements.txt &>> ${CWD}/netflix-proxy.log
 log_action_end_msg $?
