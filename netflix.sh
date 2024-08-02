@@ -17,12 +17,12 @@ function test_ipv4() {
         return;
     fi
     
-    result1=`curl -4sL "https://www.netflix.com/title/70143836" 2>&1`;
-    result2=`curl -4sL "https://www.netflix.com/title/80027042" 2>&1`;
-    result3=`curl -4sL "https://www.netflix.com/title/70140425" 2>&1`;
-    result4=`curl -4sL "https://www.netflix.com/title/70283261" 2>&1`;
-    result5=`curl -4sL "https://www.netflix.com/title/70143860" 2>&1`;
-    result6=`curl -4sL "https://www.netflix.com/title/70202589" 2>&1`;
+    result1=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -4sL "https://www.netflix.com/title/70143836" 2>&1`;
+    result2=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -4sL "https://www.netflix.com/title/80027042" 2>&1`;
+    result3=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -4sL "https://www.netflix.com/title/70140425" 2>&1`;
+    result4=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -4sL "https://www.netflix.com/title/70283261" 2>&1`;
+    result5=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -4sL "https://www.netflix.com/title/70143860" 2>&1`;
+    result6=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -4sL "https://www.netflix.com/title/70202589" 2>&1`;
     
     if [[ "$result1" == *"page-404"* ]] && [[ "$result2" == *"page-404"* ]] && [[ "$result3" == *"page-404"* ]] && [[ "$result4" == *"page-404"* ]] && [[ "$result5" == *"page-404"* ]] && [[ "$result6" == *"page-404"* ]];then
         echo -e "\033[33m你的IP可以打开Netflix 但是仅解锁自制剧\033[0m";
@@ -57,12 +57,12 @@ function test_ipv6() {
         return;
     fi
     
-    result1=`curl -6sL "https://www.netflix.com/title/70143836" 2>&1`;
-    result2=`curl -6sL "https://www.netflix.com/title/80027042" 2>&1`;
-    result3=`curl -6sL "https://www.netflix.com/title/70140425" 2>&1`;
-    result4=`curl -6sL "https://www.netflix.com/title/70283261" 2>&1`;
-    result5=`curl -6sL "https://www.netflix.com/title/70143860" 2>&1`;
-    result6=`curl -6sL "https://www.netflix.com/title/70202589" 2>&1`;
+    result1=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -6sL "https://www.netflix.com/title/70143836" 2>&1`;
+    result2=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -6sL "https://www.netflix.com/title/80027042" 2>&1`;
+    result3=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -6sL "https://www.netflix.com/title/70140425" 2>&1`;
+    result4=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -6sL "https://www.netflix.com/title/70283261" 2>&1`;
+    result5=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -6sL "https://www.netflix.com/title/70143860" 2>&1`;
+    result6=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -6sL "https://www.netflix.com/title/70202589" 2>&1`;
     
     if [[ "$result1" == *"page-404"* ]] && [[ "$result2" == *"page-404"* ]] && [[ "$result3" == *"page-404"* ]] && [[ "$result4" == *"page-404"* ]] && [[ "$result5" == *"page-404"* ]] && [[ "$result6" == *"page-404"* ]];then
         echo -e "\033[33m你的IP可以打开Netflix 但是仅解锁自制剧\033[0m";
